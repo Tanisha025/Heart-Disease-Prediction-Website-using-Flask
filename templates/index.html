@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('static/a2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row; /* Change to row */
+            justify-content: space-between;
+        }
+
+        .input-group {
+            flex-basis: calc(43.33% - 20px);
+            /*33.33% */
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            padding: 0 10px;
+        }
+
+        /* Add this style to make labels and inputs appear on the same line */
+        .input-group label, .input-group input, .input-group select {
+            display: block;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        /* Make the last element center */
+        .input-group:last-child {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input[type='submit'] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type='submit']:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .check {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 150px;
+        }
+
+        .about-link,
+        .preventions-link,
+        .symptoms-link {
+            position: absolute;
+            top: 10px;
+            color: #333;
+            text-decoration: underline;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+            margin-right: 10px;
+        }
+
+        .about-link {
+            right: 10px; /* Adjust the position based on your needs */
+        }
+
+        .preventions-link {
+            right: 100px;
+        }
+
+        .symptoms-link {
+            right: 210px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="check">
+        <h1>Heart Disease Analyzer</h1>
+        <form action='/predict' method="POST">
+            <div class="input-group">
+                <label for='sysBP'>Systolic BP:</label>
+                <input type='text' name='sysBP'>
+            </div>
+            <div class="input-group">
+                <label for='glucose'>Glucose Level:</label>
+                <input type='text' name='glucose'>
+            </div>
+            <div class="input-group">
+                <label for='age'>age:</label>
+                <input type='text' name='age'>
+            </div>
+            <div class="input-group">
+                <label for='cigsPerDay'>cigsPerDay:</label>
+                <input type='text' name='cigsPerDay'>
+            </div>
+            <div class="input-group">
+                <label for='totChol'>Cholestrol Level:</label>
+                <input type='text' name='totChol'>
+            </div>
+            <div class="input-group">
+                <label for='diaBP'>Diastolic BP:</label>
+                <input type='text' name='diaBP'>
+            </div>
+            <div class="input-group">
+                <label for='prevalentHyp'>Are You hypertensive?</label>
+                  <select name='prevalentHyp' required>
+                    <option value='0'>No</option>
+                    <option value='1'>Yes</option>
+                  </select>
+            </div>
+            <div class="input-group">
+                <label for='male'>SEX:</label>
+                <select name='male' required>
+                    <option value='0'>0 (Male)</option>
+                    <option value='1'>1 (Female)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for='BPMeds'>Take BP medicines?</label>
+                    <select name='BPMeds' required>
+                        <option value='0'>No</option>
+                         <option value='1'>Yes</option>
+                    </select>
+            </div>
+            <div class="input-group">
+                <label for='diabetes'>Diabetic Person?</label>
+                <select name= 'diabetes' required>
+                    <option value='0'>0 (No)</option>
+                    <option value='1'>1 (Yes)</option>
+                </select>
+            </div>
+            <div class="result">
+                Result: {{ result }} <br>
+                Probability: {{ probability }}      
+            </div>
+            <input type='submit' value='Predict'>
+        </form>
+    </div>
+    <!-- About Us link -->
+    <a href="{{ url_for('about') }}" class="about-link">About Us</a>
+    <!-- Remedies link -->
+    <a href="{{ url_for('preventions') }}" class="preventions-link">Preventions</a>
+    <!-- Symptoms link -->
+    <a href="{{ url_for('symptoms') }}" class="symptoms-link">Symptoms</a>
+</body>
+</html>
